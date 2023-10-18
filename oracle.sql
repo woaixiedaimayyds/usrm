@@ -1,33 +1,26 @@
 select * from student where sdept='CS';
---1¡¢²éÑ¯CSÏµÄêÁä´óÓÚ20ËêµÄÑ§Éú£¬ÁĞ³öÑ§ºÅ£¬ĞÕÃû£¬ĞÔ±ğ¡£
+--1ã€æŸ¥è¯¢CSç³»å¹´é¾„å¤§äº20å²çš„å­¦ç”Ÿï¼Œåˆ—å‡ºå­¦å·ï¼Œå§“åï¼Œæ€§åˆ«ã€‚
 select sno,sname,ssex
 from student
 where sage>20 and sdept='CS';
 commit;
---2¡¢²éÑ¯Ñ¡ÁË'DB'¿Î³ÌµÄÑ§ÉúµÄÑ§ºÅ¡£
+--2ã€æŸ¥è¯¢é€‰äº†'DB'è¯¾ç¨‹çš„å­¦ç”Ÿçš„å­¦å·ã€‚
 select sno from SC
 where cno in(select cno from Course where cname='DB');
 
 
---3¡¢²éÑ¯CSÏµÃ»ÓĞÑ¡'DB'¿Î³ÌµÄÑ§ÉúµÄÑ§ºÅ£¬ĞÕÃû£¬Ïµ¡£
-select sno,sname,sdept
-from Student
-where not exists(select* from SC where sno=Student.sno 
-and cno in(select cno from Course where cname='DB')) 
-and sdept='CS';
-
---4¡¢²éÑ¯ÄĞ£¨¡®m¡¯£©Í¬Ñ§Ñ¡ÔñÁË'DB'¿Î³Ì£¬µ«ÊÇÃ»ÓĞÑ¡'Oracle'¿Î³ÌµÄÑ§Éú£¬ÁĞ³öÑ§ºÅ£¬ĞÕÃû¡£(¿Î³ÌÃûÒªÇø·Ö´óĞ¡Ğ´)
+--4ã€æŸ¥è¯¢ç”·ï¼ˆâ€˜mâ€™ï¼‰åŒå­¦é€‰æ‹©äº†'DB'è¯¾ç¨‹ï¼Œä½†æ˜¯æ²¡æœ‰é€‰'Oracle'è¯¾ç¨‹çš„å­¦ç”Ÿï¼Œåˆ—å‡ºå­¦å·ï¼Œå§“åã€‚(è¯¾ç¨‹åè¦åŒºåˆ†å¤§å°å†™)
 select sno,sname from Student
-where ssex='ÄĞ' and sno in(select sno from SC where cno in(select cno from Course where cname='DB')) and sno not in(select sno from SC where cno in(select cno from Course where cname='Oracle'));
+where ssex='ç”·' and sno in(select sno from SC where cno in(select cno from Course where cname='DB')) and sno not in(select sno from SC where cno in(select cno from Course where cname='Oracle'));
 
 
---1¡¢²éÑ¯Ã¿¸öÑ§ÉúµÄÆ½¾ù·Ö£¬ÁĞ³öÑ§ÉúµÄÑ§ºÅ£¬Æ½¾ù·Ö£¨ÁĞÃûÎªsavg£©,²¢°´Æ½¾ù·Ö½µĞòÅÅÁĞ¡£
+--1ã€æŸ¥è¯¢æ¯ä¸ªå­¦ç”Ÿçš„å¹³å‡åˆ†ï¼Œåˆ—å‡ºå­¦ç”Ÿçš„å­¦å·ï¼Œå¹³å‡åˆ†ï¼ˆåˆ—åä¸ºsavgï¼‰,å¹¶æŒ‰å¹³å‡åˆ†é™åºæ’åˆ—ã€‚
 select sno,avg(grade) as savg
 from SC
 group by sno
 order by savg desc;
 
---2¡¢²éÑ¯Ñ¡¿ÎÈËÊı´óÓÚµÈÓÚ3ÈËµÄ¿Î³Ì£¬ÁĞ³ö¿Î³ÌºÅ£¬¿Î³ÌÃû£¬Ñ¡¿ÎÈËÊı£¨ÁĞÃûÎªscnt£©,²¢°´¿Î³ÌºÅÉıĞòÅÅÁĞ¡£
+--2ã€æŸ¥è¯¢é€‰è¯¾äººæ•°å¤§äºç­‰äº3äººçš„è¯¾ç¨‹ï¼Œåˆ—å‡ºè¯¾ç¨‹å·ï¼Œè¯¾ç¨‹åï¼Œé€‰è¯¾äººæ•°ï¼ˆåˆ—åä¸ºscntï¼‰,å¹¶æŒ‰è¯¾ç¨‹å·å‡åºæ’åˆ—ã€‚
 select SC.cno,cname,count(sno) as scnt
 from Course,SC
 where Course.cno=SC.cno 
@@ -37,14 +30,14 @@ order by SC.cno;
 
 
 
---3¡¢²éÑ¯Ñ¡¿ÎÈËÊı×î¶àµÄ¿Î³Ì¡£ÁĞ³ö¿Î³ÌºÅ£¬¿Î³ÌÃû¡£
+--3ã€æŸ¥è¯¢é€‰è¯¾äººæ•°æœ€å¤šçš„è¯¾ç¨‹ã€‚åˆ—å‡ºè¯¾ç¨‹å·ï¼Œè¯¾ç¨‹åã€‚
 select Course.cno,cname
 from Course,SC
 where Course.cno=SC.cno
 group by Course.cno,cname
 having count(sno)>=all(select count(sno) from SC group by SC.cno);
 
---4¡¢²éÑ¯CSÏµÑ¡¿ÎÈËÊı×î¶àµÄ¿Î³Ì¡£ÁĞ³ö¿Î³ÌºÅ£¬¿Î³ÌÃû£¬CSÏµµÄÑ¡¿ÎÈËÊı£¨ÁĞÃûÎªCScnt£©¡£
+--4ã€æŸ¥è¯¢CSç³»é€‰è¯¾äººæ•°æœ€å¤šçš„è¯¾ç¨‹ã€‚åˆ—å‡ºè¯¾ç¨‹å·ï¼Œè¯¾ç¨‹åï¼ŒCSç³»çš„é€‰è¯¾äººæ•°ï¼ˆåˆ—åä¸ºCScntï¼‰ã€‚
 select SC.cno,cname,count(Student.sno)as CScnt
 from Course,SC,Student
 where SC.sno=Student.sno and SC.cno=Course.cno and sdept='CS'
